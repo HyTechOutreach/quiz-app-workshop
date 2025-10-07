@@ -48,3 +48,26 @@
         opacity: 0.6;
     }
 }
+
+.loading,
+.no-questions,
+.error {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    text-align: center;
+    gap: 1rem;
+
+    p {
+        font-size: 1.2rem;
+        color: #666;
+    }
+}
+
+.error {
+    p {
+        color: #d32f2f;
+    }
+}

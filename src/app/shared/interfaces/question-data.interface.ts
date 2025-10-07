@@ -8,3 +8,12 @@ export interface QuestionData {
     };
     answer: string;
 }
+
+export interface QuizDataResponse {
+    single: {
+        [category: string]: QuestionData[];
+    };
+    multiple: {
+        [category: string]: QuestionData[];
+    };
+}

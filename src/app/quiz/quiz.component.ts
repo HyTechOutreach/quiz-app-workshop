@@ -1,8 +1,10 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, computed, inject, OnInit, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { QuestionComponent } from '../question/question.component';
-import { QuestionData } from '../shared/interfaces/question-data.interface';
 import { TitleCasePipe } from '@angular/common';
+import { QuizService } from '../services/quiz.service';
+import { QuizState } from '../shared/interfaces/quiz-state.interface';
 
 @Component({
     selector: 'app-quiz',
@@ -10,36 +12,24 @@ import { TitleCasePipe } from '@angular/common';
     templateUrl: './quiz.component.html',
     styleUrl: './quiz.component.scss'
 })
-export class QuizComponent {
+export class QuizComponent implements OnInit {
+    private readonly quizService = inject(QuizService);
+    private readonly destroyRef = inject(DestroyRef);
+
     currentQuestionIndex = signal(0);
     currentCategory = signal('angular');
 
-    questions = signal<QuestionData[]>([
-        {
-            answer: "b",
-            options: {
-                a: "Biblioteką JavaScript do budowy interfejsów użytkownika",
-                b: "Frameworkiem TypeScript do tworzenia aplikacji webowych",
-                c: "Językiem programowania",
-                d: "Bazą danych"
-            },
-            question: "Czym jest Angular?"
-        },
-        {
-            answer: "d",
-            options: {
-                a: "JavaScript",
-                b: "Java",
-                c: "Python",
-                d: "TypeScript"
-            },
-            question: "Jaki język jest podstawą Angulara?"
-        }
-    ]);
+    private quizState = signal<QuizState>({ status: 'loading' });
+    state = computed(() => this.quizState());
 
-    currentQuestion = computed(() =>
-        this.questions()[this.currentQuestionIndex()]
+    questions = computed(() =>
+        this.quizState().status === 'success' ? this.quizState().data! : []
     );
+
+    currentQuestion = computed(() => {
+        const questions = this.questions();
+        return questions[this.currentQuestionIndex()] || null;
+    });
 
     isFirstQuestion = computed(() =>
         this.currentQuestionIndex() === 0
@@ -48,6 +38,11 @@ export class QuizComponent {
     isLastQuestion = computed(() =>
         this.currentQuestionIndex() === this.questions().length - 1
     );
+
+
+    ngOnInit(): void {
+        this.loadQuestions();
+    }
 
     previousQuestion(): void {
         if (!this.isFirstQuestion()) {
@@ -59,5 +54,27 @@ export class QuizComponent {
         if (!this.isLastQuestion()) {
             this.currentQuestionIndex.update(index => index + 1);
         }
+    }
+
+    loadQuestions(): void {
+        this.quizState.set({ status: 'loading' });
+        this.quizService.getQuestionsByCategory(this.currentCategory())
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: (questions) => {
+                    this.quizState.set({
+                        status: 'success',
+                        data: questions
+                    });
+                    this.currentQuestionIndex.set(0);
+                },
+                error: (error) => {
+                    console.error('Error loading questions:', error);
+                    this.quizState.set({
+                        status: 'error',
+                        error: 'Nie udało się załadować pytań. Spróbuj ponownie.'
+                    });
+                }
+            });
     }
 }
