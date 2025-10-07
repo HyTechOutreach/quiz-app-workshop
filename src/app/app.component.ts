@@ -9,5 +9,5 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     styleUrl: './app.component.scss',
 })
 export class AppComponent {
-    protected readonly title = signal('My Quiz App');
+    protected readonly title = signal('Moja aplikacja');
 }
