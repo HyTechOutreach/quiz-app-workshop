@@ -1,6 +1,11 @@
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@use '@angular/material' as mat;
 
 html, body {
+
+    @include mat.theme((
+        color: mat.$spring-green-palette,
+        typography: Roboto
+    ));
     height: 100%;
     margin: 0;
     overflow: hidden;
