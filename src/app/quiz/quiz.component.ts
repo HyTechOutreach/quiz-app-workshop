@@ -5,6 +5,7 @@ import { QuestionComponent } from '../question/question.component';
 import { TitleCasePipe } from '@angular/common';
 import { QuizService } from '../services/quiz.service';
 import { QuizState } from '../shared/interfaces/quiz-state.interface';
+import { Difficulty } from '../shared/models/difficulty.model';
 
 @Component({
     selector: 'app-quiz',
@@ -17,7 +18,8 @@ export class QuizComponent implements OnInit {
     private readonly destroyRef = inject(DestroyRef);
 
     currentQuestionIndex = signal(0);
-    currentCategory = signal('angular');
+    difficulty = signal<Difficulty>('single');
+    category = signal('angular');
 
     private quizState = signal<QuizState>({ status: 'loading' });
     state = computed(() => this.quizState());
@@ -58,7 +60,7 @@ export class QuizComponent implements OnInit {
 
     loadQuestions(): void {
         this.quizState.set({ status: 'loading' });
-        this.quizService.getQuestionsByCategory(this.currentCategory())
+        this.quizService.getQuestions(this.difficulty(), this.category())
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe({
                 next: (questions) => {
