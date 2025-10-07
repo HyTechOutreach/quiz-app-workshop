@@ -1,11 +1,10 @@
 @use '@angular/material' as mat;
 
-html, body {
-
-    @include mat.theme((
-        color: mat.$spring-green-palette,
-        typography: Roboto
-    ));
+html,
+body {
+    @include mat.theme((color: mat.$spring-green-palette,
+            typography: Roboto));
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
     height: 100%;
     margin: 0;
     overflow: hidden;
