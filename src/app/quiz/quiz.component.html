@@ -1,1 +1,32 @@
-<p>quiz works!</p>
+<div class="quiz-container">
+    <div class="quiz-header">
+        <h1>Kategoria: {{ currentCategory() | titlecase }}</h1>
+        <p class="question-progress">
+            Pytanie {{ currentQuestionIndex() + 1 }} z {{ questions().length }}
+        </p>
+    </div>
+
+    <div class="question-wrapper">
+        <app-question [question]="currentQuestion()"></app-question>
+    </div>
+
+    <div class="navigation-buttons">
+        <button
+            mat-raised-button
+            color="accent"
+            [disabled]="isFirstQuestion()"
+            (click)="previousQuestion()"
+        >
+            Previous
+        </button>
+
+        <button
+            mat-raised-button
+            color="primary"
+            [disabled]="isLastQuestion()"
+            (click)="nextQuestion()"
+        >
+            Next
+        </button>
+    </div>
+</div>
