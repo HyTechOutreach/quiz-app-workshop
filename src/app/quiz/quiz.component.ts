@@ -79,4 +79,6 @@ export class QuizComponent implements OnInit {
                 }
             });
     }
+
+    finishQuiz(): void {}
 }

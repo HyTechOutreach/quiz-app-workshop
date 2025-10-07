@@ -31,21 +31,15 @@
 
     @if (state().status === 'success' && questions().length > 0) {
         <div class="navigation-buttons">
-            <button
-                mat-raised-button
-                [disabled]="isFirstQuestion()"
-                (click)="previousQuestion()"
-            >
-                Poprzedni
+            <button matButton="elevated" [disabled]="isFirstQuestion()" (click)="previousQuestion()">
+                Poprzednie
             </button>
 
-            <button
-                mat-raised-button
-                [disabled]="isLastQuestion()"
-                (click)="nextQuestion()"
-            >
-                Następny
-            </button>
+            @if(isLastQuestion()) {
+                <button matButton="filled" (click)="finishQuiz()">Zakończ Quiz</button>
+            } @else {
+                <button matButton="elevated" (click)="nextQuestion()">Następne</button>
+            }
         </div>
     }
 </div>
