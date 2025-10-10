@@ -1,0 +1,66 @@
+<div class="all-questions-container">
+    <div class="quiz-header">
+        <h1>{{ category() | titlecase }} Quiz - Wszystkie pytania</h1>
+
+        @if (state().status === 'success') {
+            <div class="progress-section">
+                <p class="progress-text">
+                    Ukończono: {{ answeredCount() }} z {{ questions().length }} pytań
+                </p>
+                <mat-progress-bar
+                    mode="determinate"
+                    [value]="progressPercentage()"
+                    class="progress-bar"
+                >
+                </mat-progress-bar>
+            </div>
+        }
+    </div>
+
+    <div class="questions-wrapper">
+        @switch (state().status) {
+            @case ('loading') {
+                <div class="loading">
+                    <p>Ładowanie pytań...</p>
+                </div>
+            }
+            @case ('error') {
+                <div class="error">
+                    <p>{{ state().error }}</p>
+                    <button matButton="elevated" (click)="loadQuestions()">Ponów</button>
+                </div>
+            } @case ('success') {
+                <div class="questions-grid">
+                    @for (question of questions(); track $index) {
+                        <div class="question-container">
+                            <div class="question-number">Pytanie {{ $index + 1 }}</div>
+                            <app-question [question]="question" [questionIndex]="$index"> </app-question>
+                        </div>
+                    }
+                </div>
+            }
+        }
+    </div>
+
+    @if (state().status === 'success' && questions().length > 0) {
+        <div class="finish-section">
+            <div class="completion-status">
+                @if (!canFinishQuiz()) {
+                    <p class="incomplete-message">
+                        Odpowiedz na wszystkie pytania aby zakończyć quiz (pozostało:
+                        {{ questions().length - answeredCount() }})
+                    </p>
+                }
+            </div>
+
+            <button
+                matButton="filled"
+                [disabled]="!canFinishQuiz()"
+                (click)="finishQuiz()"
+                class="finish-button"
+            >
+                Zakończ Quiz
+            </button>
+        </div>
+    }
+</div>
