@@ -22,10 +22,11 @@ export class AllQuestionsQuizComponent implements OnInit {
     private readonly router = inject(Router);
     private readonly destroyRef = inject(DestroyRef);
 
+    private quizState = signal<QuizState>({ status: 'loading' });
+
     difficulty = signal<Difficulty>('single');
     category = signal('angular');
 
-    private quizState = signal<QuizState>({ status: 'loading' });
     state = computed(() => this.quizState());
 
     questions = computed(() =>
