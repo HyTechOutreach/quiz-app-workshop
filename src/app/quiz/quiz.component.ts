@@ -1,6 +1,6 @@
 import { Component, signal, computed, inject, OnInit, DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { QuestionComponent } from '../question/question.component';
 import { TitleCasePipe } from '@angular/common';
@@ -19,11 +19,12 @@ export class QuizComponent implements OnInit {
     private readonly quizService = inject(QuizService);
     private readonly answerService = inject(AnswerService);
     private readonly router = inject(Router);
+    private readonly route = inject(ActivatedRoute);
     private readonly destroyRef = inject(DestroyRef);
 
     currentQuestionIndex = signal(0);
     difficulty = signal<Difficulty>('single');
-    category = signal('angular');
+    category = signal('');
 
     private quizState = signal<QuizState>({ status: 'loading' });
     state = computed(() => this.quizState());
@@ -61,7 +62,19 @@ export class QuizComponent implements OnInit {
 
 
     ngOnInit(): void {
-        this.loadQuestions();
+        this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
+            const difficulty = params['difficulty'] as Difficulty;
+            const category = params['category'];
+
+            if (!difficulty || !category) {
+                this.router.navigate(['/']);
+                return;
+            }
+
+            this.difficulty.set(difficulty);
+            this.category.set(category);
+            this.loadQuestions();
+        });
     }
 
     previousQuestion(): void {

@@ -1,6 +1,6 @@
 <div class="quiz-container">
     <div class="quiz-header">
-        <h1>Kategoria: {{ category() | titlecase }}</h1>
+        <h1>{{ category() | titlecase }} - {{ difficulty() === 'single' ? 'Łatwy' : 'Trudny' }}</h1>
         @if (state().status === 'success') {
             <p class="question-progress">
                 Pytanie {{ currentQuestionIndex() + 1 }} z {{ questions().length }}
