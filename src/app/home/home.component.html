@@ -1,4 +1,19 @@
 <div class="container">
     <h1 class="header">Witaj!</h1>
-    <button matButton="elevated" color="primary" routerLink="/quiz">Rozpocznij Quiz</button>
+
+    <div class="quiz-options">
+        <div class="quiz-option">
+            <h3>Quiz krok po kroku</h3>
+            <p>Odpowiadaj na pytania jedno po drugim</p>
+            <button matButton="elevated" routerLink="/quiz">Rozpocznij Quiz</button>
+        </div>
+
+        <div class="quiz-option">
+            <h3>Wszystkie pytania</h3>
+            <p>Wyświetl wszystkie pytania na jednej stronie</p>
+            <button matButton="elevated" routerLink="/all-questions">
+                Wszystkie pytania
+            </button>
+        </div>
+    </div>
 </div>
