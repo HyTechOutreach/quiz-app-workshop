@@ -38,7 +38,6 @@ export class AllQuestionsQuizComponent implements OnInit {
         return questions.filter((_, index) => this.answerService.getAnswer(index)).length;
     });
 
-
     progressPercentage = computed(() => {
         const total = this.questions().length;
         const answered = this.answeredCount();
