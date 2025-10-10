@@ -18,27 +18,43 @@
             @case ('error') {
                 <div class="error">
                     <p>{{ state().error }}</p>
-                    <button mat-raised-button color="warn" (click)="loadQuestions()">
+                    <button matButton="elevated" (click)="loadQuestions()">
                         Ponów
                     </button>
                 </div>
             }
             @case ('success') {
-                <app-question [question]="currentQuestion()"></app-question>
+                <app-question
+                    [question]="currentQuestion()"
+                    [questionIndex]="currentQuestionIndex()">
+                </app-question>
             }
         }
     </div>
 
     @if (state().status === 'success' && questions().length > 0) {
         <div class="navigation-buttons">
-            <button matButton="elevated" [disabled]="isFirstQuestion()" (click)="previousQuestion()">
+            <button
+                matButton="elevated"
+                [disabled]="isFirstQuestion()"
+                (click)="previousQuestion()">
                 Poprzednie
             </button>
 
             @if(isLastQuestion()) {
-                <button matButton="filled" (click)="finishQuiz()">Zakończ Quiz</button>
+                <button
+                    matButton="filled"
+                    [disabled]="!canFinishQuiz()"
+                    (click)="finishQuiz()">
+                    Zakończ Quiz
+                </button>
             } @else {
-                <button matButton="elevated" (click)="nextQuestion()">Następne</button>
+                <button
+                    matButton="elevated"
+                    [disabled]="!canGoNext()"
+                    (click)="nextQuestion()">
+                    Następne
+                </button>
             }
         </div>
     }

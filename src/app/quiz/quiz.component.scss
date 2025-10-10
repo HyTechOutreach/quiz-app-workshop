@@ -2,7 +2,7 @@
     max-width: 900px;
     margin: 0 auto;
     padding: 2rem;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -70,5 +70,18 @@
 .error {
     p {
         color: #d32f2f;
+    }
+}
+
+.validation-message {
+    text-align: center;
+    margin-top: 1rem;
+    padding: 1rem;
+
+    p {
+        color: #ff9800;
+        font-size: 1rem;
+        margin: 0;
+        font-weight: 500;
     }
 }

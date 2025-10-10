@@ -1,11 +1,13 @@
 import { Component, signal, computed, inject, OnInit, DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { QuestionComponent } from '../question/question.component';
 import { TitleCasePipe } from '@angular/common';
 import { QuizService } from '../services/quiz.service';
 import { QuizState } from '../shared/interfaces/quiz-state.interface';
 import { Difficulty } from '../shared/models/difficulty.model';
+import { AnswerService } from '../shared/services/answer.service';
 
 @Component({
     selector: 'app-quiz',
@@ -15,6 +17,8 @@ import { Difficulty } from '../shared/models/difficulty.model';
 })
 export class QuizComponent implements OnInit {
     private readonly quizService = inject(QuizService);
+    private readonly answerService = inject(AnswerService);
+    private readonly router = inject(Router);
     private readonly destroyRef = inject(DestroyRef);
 
     currentQuestionIndex = signal(0);
@@ -41,6 +45,20 @@ export class QuizComponent implements OnInit {
         this.currentQuestionIndex() === this.questions().length - 1
     );
 
+    isCurrentQuestionAnswered = computed(() => {
+        const currentIndex = this.currentQuestionIndex();
+        const answer = this.answerService.getAnswer(currentIndex);
+        return answer && answer.trim() !== '';
+    });
+
+    canGoNext = computed(() =>
+        !this.isLastQuestion() && this.isCurrentQuestionAnswered()
+    );
+
+    canFinishQuiz = computed(() =>
+        this.isLastQuestion() && this.isCurrentQuestionAnswered()
+    );
+
 
     ngOnInit(): void {
         this.loadQuestions();
@@ -53,7 +71,7 @@ export class QuizComponent implements OnInit {
     }
 
     nextQuestion(): void {
-        if (!this.isLastQuestion()) {
+        if (this.canGoNext()) {
             this.currentQuestionIndex.update(index => index + 1);
         }
     }
@@ -69,6 +87,8 @@ export class QuizComponent implements OnInit {
                         data: questions
                     });
                     this.currentQuestionIndex.set(0);
+
+                    this.answerService.initializeQuiz(questions, this.difficulty(), this.category());
                 },
                 error: (error) => {
                     console.error('Error loading questions:', error);
@@ -80,5 +100,7 @@ export class QuizComponent implements OnInit {
             });
     }
 
-    finishQuiz(): void {}
+    finishQuiz(): void {
+        this.router.navigate(['/results']);
+    }
 }

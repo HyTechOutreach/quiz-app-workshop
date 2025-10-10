@@ -1,7 +1,8 @@
-import { Component, input, signal, computed, SimpleChanges } from '@angular/core';
+import { Component, input, computed, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { QuestionData } from '../shared/interfaces/question-data.interface';
+import { AnswerService } from '../shared/services/answer.service';
 
 @Component({
     selector: 'app-question',
@@ -10,8 +11,14 @@ import { QuestionData } from '../shared/interfaces/question-data.interface';
     styleUrl: './question.component.scss'
 })
 export class QuestionComponent {
+    private answerService = inject(AnswerService);
+    
     question = input.required<QuestionData>();
-    selectedAnswer = signal<string>('');
+    questionIndex = input.required<number>();
+    
+    selectedAnswer = computed(() => 
+        this.answerService.getAnswer(this.questionIndex()) || ''
+    );
 
     optionsArray = computed(() => {
         const options = this.question().options;
@@ -23,13 +30,7 @@ export class QuestionComponent {
         ];
     });
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes['question']) {
-            this.selectedAnswer.set('');
-        }
-    }
-
     onAnswerChange(value: string): void {
-        this.selectedAnswer.set(value);
+        this.answerService.setAnswer(this.questionIndex(), value);
     }
 }
