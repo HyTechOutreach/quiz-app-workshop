@@ -69,8 +69,8 @@ export class QuestionComponent {
     private updateSelectedAnswers(currentAnswers: string[], optionKey: string, isChecked: boolean): string[] {
         if (isChecked) {
             return [...currentAnswers, optionKey].sort();
-        } else {
-            return currentAnswers.filter(answerKey => answerKey !== optionKey);
         }
+
+        return currentAnswers.filter(answerKey => answerKey !== optionKey);
     }
 }

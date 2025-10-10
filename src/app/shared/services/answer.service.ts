@@ -82,9 +82,9 @@ export class AnswerService {
 
         if (this.isMultipleChoice()) {
             return this.compareMultipleChoiceAnswers(normalizedSelectedAnswer, normalizedCorrectAnswer);
-        } else {
-            return this.compareSingleChoiceAnswers(normalizedSelectedAnswer, normalizedCorrectAnswer);
         }
+
+        return this.compareSingleChoiceAnswers(normalizedSelectedAnswer, normalizedCorrectAnswer);
     }
 
     private getAnswerText(question: QuestionData, answerKey: string): string {
@@ -96,9 +96,9 @@ export class AnswerService {
 
         if (this.isMultipleChoice()) {
             return this.buildMultipleChoiceAnswerText(question, normalizedAnswerKey);
-        } else {
-            return this.buildSingleChoiceAnswerText(question, normalizedAnswerKey);
         }
+
+        return this.buildSingleChoiceAnswerText(question, normalizedAnswerKey);
     }
 
     private compareMultipleChoiceAnswers(selectedAnswers: string, correctAnswers: string): boolean {
