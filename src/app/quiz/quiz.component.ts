@@ -114,6 +114,8 @@ export class QuizComponent implements OnInit {
     }
 
     finishQuiz(): void {
-        this.router.navigate(['/results']);
+        this.router.navigate(['/results'], {
+            queryParams: { from: 'step-by-step' }
+        });
     }
 }

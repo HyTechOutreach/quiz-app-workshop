@@ -89,6 +89,8 @@ export class AllQuestionsQuizComponent implements OnInit {
     }
 
     finishQuiz(): void {
-        this.router.navigate(['/results']);
+        this.router.navigate(['/results'], {
+            queryParams: { from: 'all-questions' }
+        });
     }
 }
