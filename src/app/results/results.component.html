@@ -63,7 +63,7 @@
                                     [class.incorrect]="!answer.isCorrect"
                                 >
                                     <span class="answer-letter"
-                                        >{{ answer.selectedAnswer.toUpperCase() }})</span
+                                        >{{ (answer.selectedAnswer || '').toString().toUpperCase() }})</span
                                     >
                                     <span class="answer-text">{{ answer.selectedAnswerText }}</span>
                                 </div>
@@ -74,7 +74,7 @@
                                     <span class="answer-label">Poprawna odpowiedź:</span>
                                     <div class="answer-value correct">
                                         <span class="answer-letter"
-                                            >{{ answer.correctAnswer.toUpperCase() }})</span
+                                            >{{ (answer.correctAnswer || '').toString().toUpperCase() }})</span
                                         >
                                         <span class="answer-text">{{ answer.correctAnswerText }}</span>
                                     </div>

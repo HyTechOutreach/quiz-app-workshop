@@ -4,16 +4,30 @@
     </mat-card-header>
 
     <mat-card-content class="question-content">
-        <mat-radio-group [value]="selectedAnswer()" class="radio-group">
-            @for (option of optionsArray(); track option.key) {
-                <mat-radio-button
-                    [value]="option.key"
-                    class="radio-option"
-                    (change)="onAnswerChange(option.key)"
-                >
-                    {{ option.value }}
-                </mat-radio-button>
-            }
-        </mat-radio-group>
+        @if (isMultipleChoice()) {
+            <div class="checkbox-group">
+                @for (option of optionsArray(); track option.key) {
+                    <mat-checkbox
+                        [checked]="isChecked(option.key)"
+                        (change)="onCheckboxChange(option.key, $event.checked)"
+                        class="checkbox-option"
+                    >
+                        {{ option.value }}
+                    </mat-checkbox>
+                }
+            </div>
+        } @else {
+            <mat-radio-group [value]="selectedAnswer()" class="radio-group">
+                @for (option of optionsArray(); track option.key) {
+                    <mat-radio-button
+                        [value]="option.key"
+                        class="radio-option"
+                        (change)="onRadioAnswerChange(option.key)"
+                    >
+                        {{ option.value }}
+                    </mat-radio-button>
+                }
+            </mat-radio-group>
+        }
     </mat-card-content>
 </mat-card>

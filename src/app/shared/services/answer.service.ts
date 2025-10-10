@@ -1,6 +1,7 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { QuestionData } from '../interfaces/question-data.interface';
 import { QuizResult, UserAnswer } from '../interfaces/quiz-result.interface';
+import { DifficultyLevel } from '../constants/quiz.constants';
 
 @Injectable({
     providedIn: 'root'
@@ -18,6 +19,8 @@ export class AnswerService {
 
         return totalQuestions > 0 && answers.size === totalQuestions;
     });
+
+    isMultipleChoice = computed(() => this.currentDifficulty() === DifficultyLevel.MULTIPLE);
 
     initializeQuiz(questions: QuestionData[], difficulty: string, category: string): void {
         this.currentQuestions.set(questions);
@@ -60,7 +63,7 @@ export class AnswerService {
     private buildUserAnswerDetails(questions: QuestionData[], answers: Map<number, string>): UserAnswer[] {
         return questions.map((question, index) => {
             const selectedAnswer = answers.get(index) || '';
-            const isCorrect = selectedAnswer === question.answer;
+            const isCorrect = this.isAnswerCorrect(selectedAnswer, question.answer);
 
             return {
                 questionIndex: index,
@@ -74,12 +77,73 @@ export class AnswerService {
         });
     }
 
+    private isAnswerCorrect(selectedAnswer: string, correctAnswer: string): boolean {
+        const normalizedSelectedAnswer = String(selectedAnswer || '');
+        const normalizedCorrectAnswer = String(correctAnswer || '');
+
+        if (this.isMultipleChoice()) {
+            return this.compareMultipleChoiceAnswers(normalizedSelectedAnswer, normalizedCorrectAnswer);
+        }
+
+        return this.compareSingleChoiceAnswers(normalizedSelectedAnswer, normalizedCorrectAnswer);
+    }
+
     private getAnswerText(question: QuestionData, answerKey: string): string {
-        if (!answerKey) {
+        const normalizedAnswerKey = String(answerKey || '');
+
+        if (!normalizedAnswerKey) {
             return '';
         }
 
-        return question.options[answerKey as keyof typeof question.options] || '';
+        if (this.isMultipleChoice()) {
+            return this.buildMultipleChoiceAnswerText(question, normalizedAnswerKey);
+        }
+
+        return this.buildSingleChoiceAnswerText(question, normalizedAnswerKey);
+    }
+
+    private compareMultipleChoiceAnswers(selectedAnswers: string, correctAnswers: string): boolean {
+        const sortedSelectedAnswers = this.parseAndSortAnswers(selectedAnswers);
+        const sortedCorrectAnswers = this.parseAndSortAnswers(correctAnswers);
+
+        return sortedSelectedAnswers === sortedCorrectAnswers;
+    }
+
+    private compareSingleChoiceAnswers(selectedAnswer: string, correctAnswer: string): boolean {
+        return selectedAnswer === correctAnswer;
+    }
+
+    private buildMultipleChoiceAnswerText(question: QuestionData, answerKeys: string): string {
+        const parsedAnswerKeys = this.parseAnswerKeys(answerKeys);
+        const answerTexts = parsedAnswerKeys.map(optionKey =>
+            this.getOptionText(question, optionKey)
+        );
+
+        return answerTexts.join(', ');
+    }
+
+    private buildSingleChoiceAnswerText(question: QuestionData, answerKey: string): string {
+        return this.getOptionText(question, answerKey);
+    }
+
+    private parseAndSortAnswers(answers: string): string {
+        return answers
+            .split(',')
+            .map(answer => answer.trim())
+            .filter(answer => answer !== '')
+            .sort()
+            .join(',');
+    }
+
+    private parseAnswerKeys(answerKeys: string): string[] {
+        return answerKeys
+            .split(',')
+            .map(key => key.trim())
+            .filter(key => key !== '');
+    }
+
+    private getOptionText(question: QuestionData, optionKey: string): string {
+        return question.options[optionKey as keyof typeof question.options] || '';
     }
 
     private calculateCorrectAnswers(userAnswerDetails: UserAnswer[]): number {

@@ -1,6 +1,6 @@
 <div class="all-questions-container">
     <div class="quiz-header">
-        <h1>{{ category() | titlecase }} Quiz - Wszystkie pytania</h1>
+        <h1>{{ category() | titlecase }} - {{ difficulty() === DIFFICULTY_LEVELS.SINGLE ? 'Łatwy' : 'Trudny' }} (Wszystkie pytania)</h1>
 
         @if (state().status === 'success') {
             <div class="progress-section">

@@ -17,3 +17,14 @@
     margin: 0.5rem 0;
     font-size: 1rem;
 }
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.checkbox-option {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+}

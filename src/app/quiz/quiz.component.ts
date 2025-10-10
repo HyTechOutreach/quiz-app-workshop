@@ -1,6 +1,6 @@
 import { Component, signal, computed, inject, OnInit, DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { QuestionComponent } from '../question/question.component';
 import { TitleCasePipe } from '@angular/common';
@@ -8,6 +8,7 @@ import { QuizService } from '../services/quiz.service';
 import { QuizState } from '../shared/interfaces/quiz-state.interface';
 import { Difficulty } from '../shared/models/difficulty.model';
 import { AnswerService } from '../shared/services/answer.service';
+import { QuizType, NavigationParam, DifficultyLevel, Routes } from '../shared/constants/quiz.constants';
 
 @Component({
     selector: 'app-quiz',
@@ -19,11 +20,12 @@ export class QuizComponent implements OnInit {
     private readonly quizService = inject(QuizService);
     private readonly answerService = inject(AnswerService);
     private readonly router = inject(Router);
+    private readonly route = inject(ActivatedRoute);
     private readonly destroyRef = inject(DestroyRef);
 
     currentQuestionIndex = signal(0);
-    difficulty = signal<Difficulty>('single');
-    category = signal('angular');
+    difficulty = signal<Difficulty>(DifficultyLevel.SINGLE);
+    category = signal('');
 
     private quizState = signal<QuizState>({ status: 'loading' });
     state = computed(() => this.quizState());
@@ -59,9 +61,24 @@ export class QuizComponent implements OnInit {
         this.isLastQuestion() && this.isCurrentQuestionAnswered()
     );
 
+    // Expose constants to template
+    readonly DIFFICULTY_LEVELS = DifficultyLevel;
+
 
     ngOnInit(): void {
-        this.loadQuestions();
+        this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
+            const difficulty = params[NavigationParam.DIFFICULTY] as Difficulty;
+            const category = params[NavigationParam.CATEGORY];
+
+            if (!difficulty || !category) {
+                this.router.navigate([Routes.HOME]);
+                return;
+            }
+
+            this.difficulty.set(difficulty);
+            this.category.set(category);
+            this.loadQuestions();
+        });
     }
 
     previousQuestion(): void {
@@ -101,6 +118,8 @@ export class QuizComponent implements OnInit {
     }
 
     finishQuiz(): void {
-        this.router.navigate(['/results']);
+        this.router.navigate([Routes.RESULTS], {
+            queryParams: { from: QuizType.STEP_BY_STEP }
+        });
     }
 }

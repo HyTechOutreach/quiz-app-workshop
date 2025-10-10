@@ -1,19 +1,71 @@
 <div class="container">
-    <h1 class="header">Witaj!</h1>
+    <h1 class="header">Witaj w Quiz App!</h1>
 
-    <div class="quiz-options">
-        <div class="quiz-option">
-            <h3>Quiz krok po kroku</h3>
-            <p>Odpowiadaj na pytania jedno po drugim</p>
-            <button matButton="elevated" routerLink="/quiz">Rozpocznij Quiz</button>
-        </div>
+    <div class="quiz-setup">
+        <mat-card class="setup-card">
+            <mat-card-header>
+                <mat-card-title>Wybierz parametry quizu</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="form-fields">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Poziom trudności</mat-label>
+                        <mat-select
+                            [value]="selectedDifficulty()"
+                            (selectionChange)="onDifficultyChange($event.value)">
+                            @for (option of difficultyOptions; track option.value) {
+                                <mat-option [value]="option.value">
+                                    {{ option.label }}
+                                </mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
 
-        <div class="quiz-option">
-            <h3>Wszystkie pytania</h3>
-            <p>Wyświetl wszystkie pytania na jednej stronie</p>
-            <button matButton="elevated" routerLink="/all-questions">
-                Wszystkie pytania
-            </button>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Kategoria</mat-label>
+                        <mat-select
+                            [value]="selectedCategory()"
+                            (selectionChange)="onCategoryChange($event.value)"
+                            [disabled]="isLoading() || availableCategories().length === 0">
+                            @if (isLoading()) {
+                                <mat-option disabled>Ładowanie kategorii...</mat-option>
+                            } @else {
+                                @for (category of availableCategories(); track category.value) {
+                                    <mat-option [value]="category.value">
+                                        {{ category.label }}
+                                    </mat-option>
+                                }
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <div class="quiz-options">
+            <div class="quiz-option">
+                <h3>Quiz krok po kroku</h3>
+                <p>Odpowiadaj na pytania jedno po drugim</p>
+                <button
+                    matButton="elevated"
+                    [disabled]="!canStartQuiz()"
+                    (click)="startQuiz(QUIZ_TYPES.STEP_BY_STEP)"
+                >
+                    Rozpocznij Quiz
+                </button>
+            </div>
+
+            <div class="quiz-option">
+                <h3>Wszystkie pytania</h3>
+                <p>Wyświetl wszystkie pytania na jednej stronie</p>
+                <button
+                    matButton="elevated"
+                    [disabled]="!canStartQuiz()"
+                    (click)="startQuiz(QUIZ_TYPES.ALL_QUESTIONS)"
+                >
+                    Wszystkie pytania
+                </button>
+            </div>
         </div>
     </div>
 </div>
