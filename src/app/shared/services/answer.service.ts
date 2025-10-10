@@ -1,6 +1,7 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { QuestionData } from '../interfaces/question-data.interface';
 import { QuizResult, UserAnswer } from '../interfaces/quiz-result.interface';
+import { DifficultyLevel } from '../constants/quiz.constants';
 
 @Injectable({
     providedIn: 'root'
@@ -19,7 +20,7 @@ export class AnswerService {
         return totalQuestions > 0 && answers.size === totalQuestions;
     });
 
-    isMultipleChoice = computed(() => this.currentDifficulty() === 'multiple');
+    isMultipleChoice = computed(() => this.currentDifficulty() === DifficultyLevel.MULTIPLE);
 
     initializeQuiz(questions: QuestionData[], difficulty: string, category: string): void {
         this.currentQuestions.set(questions);

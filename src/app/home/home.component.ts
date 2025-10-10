@@ -7,6 +7,7 @@ import { RouterModule, Router } from '@angular/router';
 import { QuizService } from '../services/quiz.service';
 import { Difficulty } from '../shared/models/difficulty.model';
 import { CategoryOption } from './interfaces/category-option.interface';
+import { DifficultyLevel, QuizType, NavigationParam, Routes } from '../shared/constants/quiz.constants';
 
 @Component({
     selector: 'app-home',
@@ -18,7 +19,7 @@ export class HomeComponent implements OnInit {
     private quizService = inject(QuizService);
     private router = inject(Router);
 
-    selectedDifficulty = signal<Difficulty>('single');
+    selectedDifficulty = signal<Difficulty>(DifficultyLevel.SINGLE);
     selectedCategory = signal<string>('');
 
     availableCategories = signal<CategoryOption[]>([]);
@@ -29,9 +30,11 @@ export class HomeComponent implements OnInit {
     );
 
     difficultyOptions = [
-        { value: 'single' as Difficulty, label: 'Łatwy (pojedyncza odpowiedź)' },
-        { value: 'multiple' as Difficulty, label: 'Trudny (wielokrotny wybór)' }
+        { value: DifficultyLevel.SINGLE as Difficulty, label: 'Łatwy (pojedyncza odpowiedź)' },
+        { value: DifficultyLevel.MULTIPLE as Difficulty, label: 'Trudny (wielokrotny wybór)' }
     ];
+
+    readonly QUIZ_TYPES = QuizType;
 
     ngOnInit(): void {
         this.loadCategories();
@@ -47,16 +50,20 @@ export class HomeComponent implements OnInit {
         this.selectedCategory.set(category);
     }
 
-    startQuiz(type: 'step-by-step' | 'all-questions'): void {
+    startQuiz(type: QuizType): void {
         if (!this.canStartQuiz()) return;
 
-        const routePath = type === 'step-by-step' ? '/quiz' : '/all-questions';
+        const routePath = this.getQuizRoutePath(type);
         this.router.navigate([routePath], {
             queryParams: {
-                difficulty: this.selectedDifficulty(),
-                category: this.selectedCategory()
+                [NavigationParam.DIFFICULTY]: this.selectedDifficulty(),
+                [NavigationParam.CATEGORY]: this.selectedCategory()
             }
         });
+    }
+
+    private getQuizRoutePath(type: QuizType): string {
+        return type === QuizType.STEP_BY_STEP ? Routes.QUIZ_STEP_BY_STEP : Routes.QUIZ_ALL_QUESTIONS;
     }
 
     private loadCategories(): void {

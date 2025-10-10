@@ -49,7 +49,7 @@
                 <button
                     matButton="elevated"
                     [disabled]="!canStartQuiz()"
-                    (click)="startQuiz('step-by-step')"
+                    (click)="startQuiz(QUIZ_TYPES.STEP_BY_STEP)"
                 >
                     Rozpocznij Quiz
                 </button>
@@ -61,7 +61,7 @@
                 <button
                     matButton="elevated"
                     [disabled]="!canStartQuiz()"
-                    (click)="startQuiz('all-questions')"
+                    (click)="startQuiz(QUIZ_TYPES.ALL_QUESTIONS)"
                 >
                     Wszystkie pytania
                 </button>

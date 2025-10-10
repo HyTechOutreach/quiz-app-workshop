@@ -7,6 +7,7 @@ import { TitleCasePipe } from '@angular/common';
 import { take } from 'rxjs';
 import { AnswerService } from '../shared/services/answer.service';
 import { QuizResult } from '../shared/interfaces/quiz-result.interface';
+import { QuizType, NavigationParam, Routes } from '../shared/constants/quiz.constants';
 
 @Component({
     selector: 'app-results',
@@ -20,7 +21,7 @@ export class ResultsComponent implements OnInit {
     private route = inject(ActivatedRoute);
 
     quizResult = signal<QuizResult | null>(null);
-    previousQuizType = signal<'step-by-step' | 'all-questions'>('step-by-step');
+    previousQuizType = signal<QuizType>(QuizType.STEP_BY_STEP);
 
     scoreColor = computed(() => {
         const result = this.quizResult();
@@ -73,13 +74,13 @@ export class ResultsComponent implements OnInit {
 
     goHome(): void {
         this.answerService.resetQuiz();
-        this.router.navigate(['/']);
+        this.router.navigate([Routes.HOME]);
     }
 
     private detectPreviousQuizType(): void {
         this.route.queryParams.pipe(take(1)).subscribe(params => {
-            if (params['from'] === 'all-questions') {
-                this.previousQuizType.set('all-questions');
+            if (params[NavigationParam.FROM] === QuizType.ALL_QUESTIONS) {
+                this.previousQuizType.set(QuizType.ALL_QUESTIONS);
             }
         });
     }
@@ -87,7 +88,7 @@ export class ResultsComponent implements OnInit {
     private loadQuizResults(): void {
         const result = this.answerService.getResults();
         if (result.totalQuestions === 0) {
-            this.router.navigate(['/']);
+            this.router.navigate([Routes.HOME]);
             return;
         }
 
@@ -98,13 +99,13 @@ export class ResultsComponent implements OnInit {
         const routePath = this.getQuizRoutePath();
         this.router.navigate([routePath], {
             queryParams: {
-                difficulty,
-                category
+                [NavigationParam.DIFFICULTY]: difficulty,
+                [NavigationParam.CATEGORY]: category
             }
         });
     }
 
     private getQuizRoutePath(): string {
-        return this.previousQuizType() === 'all-questions' ? '/all-questions' : '/quiz';
+        return this.previousQuizType() === QuizType.ALL_QUESTIONS ? Routes.QUIZ_ALL_QUESTIONS : Routes.QUIZ_STEP_BY_STEP;
     }
 }

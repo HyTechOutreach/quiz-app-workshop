@@ -8,6 +8,7 @@ import { QuizService } from '../services/quiz.service';
 import { QuizState } from '../shared/interfaces/quiz-state.interface';
 import { Difficulty } from '../shared/models/difficulty.model';
 import { AnswerService } from '../shared/services/answer.service';
+import { QuizType, NavigationParam, DifficultyLevel, Routes } from '../shared/constants/quiz.constants';
 
 @Component({
     selector: 'app-quiz',
@@ -23,7 +24,7 @@ export class QuizComponent implements OnInit {
     private readonly destroyRef = inject(DestroyRef);
 
     currentQuestionIndex = signal(0);
-    difficulty = signal<Difficulty>('single');
+    difficulty = signal<Difficulty>(DifficultyLevel.SINGLE);
     category = signal('');
 
     private quizState = signal<QuizState>({ status: 'loading' });
@@ -60,14 +61,17 @@ export class QuizComponent implements OnInit {
         this.isLastQuestion() && this.isCurrentQuestionAnswered()
     );
 
+    // Expose constants to template
+    readonly DIFFICULTY_LEVELS = DifficultyLevel;
+
 
     ngOnInit(): void {
         this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
-            const difficulty = params['difficulty'] as Difficulty;
-            const category = params['category'];
+            const difficulty = params[NavigationParam.DIFFICULTY] as Difficulty;
+            const category = params[NavigationParam.CATEGORY];
 
             if (!difficulty || !category) {
-                this.router.navigate(['/']);
+                this.router.navigate([Routes.HOME]);
                 return;
             }
 
@@ -114,8 +118,8 @@ export class QuizComponent implements OnInit {
     }
 
     finishQuiz(): void {
-        this.router.navigate(['/results'], {
-            queryParams: { from: 'step-by-step' }
+        this.router.navigate([Routes.RESULTS], {
+            queryParams: { from: QuizType.STEP_BY_STEP }
         });
     }
 }
