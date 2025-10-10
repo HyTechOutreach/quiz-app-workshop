@@ -1,89 +1,53 @@
-.container {
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: #fafafa;
-}
+.home {
+    &__container {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #fafafa;
+    }
 
-.header {
-    margin-bottom: 3rem;
-    text-align: center;
-    font-size: 2.5rem;
-    font-weight: 600;
-}
+    &__header {
+        margin-bottom: 3rem;
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 600;
+    }
 
-.quiz-setup {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    width: 100%;
-    max-width: 800px;
-}
+    &__quiz-setup {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        width: 100%;
+        max-width: 600px;
 
-.setup-card {
-    .form-fields {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
-        margin-top: 1rem;
-
-        @media (max-width: 768px) {
-            grid-template-columns: 1fr;
+        &-card {
+            &-form-fields {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin-top: 1rem;
+            }
         }
     }
 
-    mat-form-field {
-        width: 100%;
-    }
-}
-
-.quiz-options {
-    display: flex;
-    gap: 2rem;
-
-    @media (max-width: 768px) {
-        flex-direction: column;
-        gap: 1.5rem;
-    }
-}
-
-.quiz-option {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    flex: 1;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-    &:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    }
-
-    h3 {
-        margin: 0 0 1rem 0;
-        font-size: 1.5rem;
-        color: #333;
-    }
-
-    p {
-        margin: 0 0 1.5rem 0;
-        color: #666;
-        line-height: 1.5;
-    }
-
-    button {
-        min-width: 180px;
-        height: 48px;
-        font-size: 1rem;
-        font-weight: 500;
+    &__start-button {
+        min-width: 200px;
+        height: 56px;
+        font-size: 1.1rem;
+        font-weight: 600;
 
         &:disabled {
             opacity: 0.6;
             cursor: not-allowed;
+        }
+
+        &-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            padding-bottom: 8px;
         }
     }
 }

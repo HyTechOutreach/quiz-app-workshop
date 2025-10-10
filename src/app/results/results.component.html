@@ -1,30 +1,30 @@
-<div class="results-container">
+<div class="results__container">
     @if (quizResult(); as result) {
-        <div class="results-header">
-            <h1>Wyniki Quizu</h1>
-            <h2>{{ result.category | titlecase }} - {{ result.difficulty | titlecase }}</h2>
+        <div class="results__header">
+            <h1 class="results__header-title">Wyniki Quizu</h1>
+            <h2 class="results__header-subtitle">{{ result.category | titlecase }} - {{ result.difficulty | titlecase }}</h2>
         </div>
 
-        <div class="score-section">
-            <mat-card class="score-card" [class]="scoreColor()">
+        <div class="results__score-section">
+            <mat-card class="results__score-card results__score-card--{{ scoreColor() }}">
                 <mat-card-header>
                     <mat-card-title>Twój wynik</mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
-                    <div class="score-display">
-                        <span class="score-number">{{ result.score }}%</span>
-                        <p class="score-message">{{ scoreMessage() }}</p>
+                    <div class="results__score-display">
+                        <span class="results__score-number">{{ result.score }}%</span>
+                        <p class="results__score-message">{{ scoreMessage() }}</p>
                     </div>
-                    <div class="score-details">
-                        <div class="detail-item">
-                            <span class="label">Poprawne odpowiedzi:</span>
-                            <span class="value correct"
+                    <div class="results__score-details">
+                        <div class="results__detail-item">
+                            <span class="results__detail-label">Poprawne odpowiedzi:</span>
+                            <span class="results__detail-value results__detail-value--correct"
                                 >{{ result.correctAnswers }}/{{ result.totalQuestions }}</span
                             >
                         </div>
-                        <div class="detail-item">
-                            <span class="label">Błędne odpowiedzi:</span>
-                            <span class="value incorrect"
+                        <div class="results__detail-item">
+                            <span class="results__detail-label">Błędne odpowiedzi:</span>
+                            <span class="results__detail-value results__detail-value--incorrect"
                                 >{{ result.incorrectAnswers }}/{{ result.totalQuestions }}</span
                             >
                         </div>
@@ -33,74 +33,66 @@
             </mat-card>
         </div>
 
-        <div class="answers-section">
-            <h3>Szczegółowe wyniki</h3>
+        <div class="results__answers-section">
+            <h3 class="results__answers-title">Szczegółowe wyniki</h3>
 
             @for (answer of result.answers; track answer.questionIndex) {
-                <mat-card
-                    class="answer-card"
-                    [class]="answer.isCorrect ? 'correct' : 'incorrect'"
-                >
-                    <div class="card-header">
-                        <h3 class="card-title">Pytanie {{ answer.questionIndex + 1 }}</h3>
-                        <mat-icon
-                            class="result-icon"
-                            [class]="answer.isCorrect ? 'correct' : 'incorrect'"
-                        >
-                            {{ answer.isCorrect ? 'check_circle' : 'cancel' }}
-                        </mat-icon>
-                    </div>
+            <mat-card class="results__answer-card results__answer-card--{{ answer.isCorrect ? 'correct' : 'incorrect' }}">
+                <div class="results__answer-header">
+                    <h3 class="results__answer-title">Pytanie {{ answer.questionIndex + 1 }}</h3>
+                    <mat-icon class="results__answer-icon results__answer-icon--{{ answer.isCorrect ? 'correct' : 'incorrect' }}">
+                        {{ answer.isCorrect ? 'check_circle' : 'cancel' }}
+                    </mat-icon>
+                </div>
 
-                    <mat-card-content>
-                        <p class="question-text">{{ answer.questionText }}</p>
+                <mat-card-content>
+                    <p class="results__question-text">{{ answer.questionText }}</p>
 
-                        <div class="answer-details">
-                            <div class="answer-row">
-                                <span class="answer-label">Twoja odpowiedź:</span>
-                                <div
-                                    class="answer-value"
-                                    [class.correct]="answer.isCorrect"
-                                    [class.incorrect]="!answer.isCorrect"
+                    <div class="results__answer-details">
+                        <div class="results__answer-row">
+                            <span class="results__answer-label">Twoja odpowiedź:</span>
+                            <div class="results__answer-value results__answer-value--{{ answer.isCorrect ? 'correct' : 'incorrect' }}">
+                                <span class="results__answer-letter"
+                                    >{{ (answer.selectedAnswer || '').toString().toUpperCase() }})</span
                                 >
-                                    <span class="answer-letter"
-                                        >{{ (answer.selectedAnswer || '').toString().toUpperCase() }})</span
-                                    >
-                                    <span class="answer-text">{{ answer.selectedAnswerText }}</span>
-                                </div>
+                                <span class="results__answer-text">{{ answer.selectedAnswerText }}</span>
                             </div>
-
-                            @if (!answer.isCorrect) {
-                                <div class="answer-row">
-                                    <span class="answer-label">Poprawna odpowiedź:</span>
-                                    <div class="answer-value correct">
-                                        <span class="answer-letter"
-                                            >{{ (answer.correctAnswer || '').toString().toUpperCase() }})</span
-                                        >
-                                        <span class="answer-text">{{ answer.correctAnswerText }}</span>
-                                    </div>
-                                </div>
-                            }
                         </div>
-                    </mat-card-content>
-                </mat-card>
+
+                        @if (!answer.isCorrect) {
+                        <div class="results__answer-row">
+                            <span class="results__answer-label">Poprawna odpowiedź:</span>
+                            <div class="results__answer-value results__answer-value--correct">
+                                <span class="results__answer-letter"
+                                    >{{ (answer.correctAnswer || '').toString().toUpperCase() }})</span
+                                >
+                                <span class="results__answer-text">{{ answer.correctAnswerText }}</span>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </mat-card-content>
+            </mat-card>
             }
         </div>
 
-        <div class="actions-section">
-            <button mat-raised-button color="primary" (click)="restartQuiz()">
+        <div class="results__actions">
+            <button matButton="elevated" color="primary" (click)="restartQuiz()" class="results__action-button">
                 <mat-icon>refresh</mat-icon>
                 Spróbuj ponownie
             </button>
 
-            <button mat-raised-button color="accent" (click)="goHome()">
+            <button matButton="filled" color="accent" (click)="goHome()" class="results__action-button">
                 <mat-icon>home</mat-icon>
                 Strona główna
             </button>
         </div>
     } @else {
-        <div class="no-results">
-            <p>Brak wyników do wyświetlenia</p>
-            <button mat-raised-button color="primary" (click)="goHome()">Wróć do strony głównej</button>
+        <div class="results__no-results">
+            <p class="results__no-results-message">Brak wyników do wyświetlenia</p>
+            <button matButton="filled" color="primary" (click)="goHome()" class="results__no-results-button">
+                Wróć do strony głównej
+            </button>
         </div>
     }
 </div>

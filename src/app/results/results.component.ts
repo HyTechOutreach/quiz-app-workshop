@@ -13,7 +13,7 @@ import { QuizType, NavigationParam, Routes } from '../shared/constants/quiz.cons
     selector: 'app-results',
     imports: [MatCardModule, MatButtonModule, MatIconModule, TitleCasePipe],
     templateUrl: './results.component.html',
-    styleUrl: './results.component.scss'
+    styleUrl: './results.component.scss',
 })
 export class ResultsComponent implements OnInit {
     private answerService = inject(AnswerService);
@@ -78,7 +78,7 @@ export class ResultsComponent implements OnInit {
     }
 
     private detectPreviousQuizType(): void {
-        this.route.queryParams.pipe(take(1)).subscribe(params => {
+        this.route.queryParams.pipe(take(1)).subscribe((params) => {
             if (params[NavigationParam.FROM] === QuizType.ALL_QUESTIONS) {
                 this.previousQuizType.set(QuizType.ALL_QUESTIONS);
             }
@@ -100,12 +100,14 @@ export class ResultsComponent implements OnInit {
         this.router.navigate([routePath], {
             queryParams: {
                 [NavigationParam.DIFFICULTY]: difficulty,
-                [NavigationParam.CATEGORY]: category
-            }
+                [NavigationParam.CATEGORY]: category,
+            },
         });
     }
 
     private getQuizRoutePath(): string {
-        return this.previousQuizType() === QuizType.ALL_QUESTIONS ? Routes.QUIZ_ALL_QUESTIONS : Routes.QUIZ_STEP_BY_STEP;
+        return this.previousQuizType() === QuizType.ALL_QUESTIONS
+            ? Routes.QUIZ_ALL_QUESTIONS
+            : Routes.QUIZ_STEP_BY_STEP;
     }
 }
