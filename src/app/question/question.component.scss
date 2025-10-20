@@ -1,0 +1,21 @@
+.question__card {
+    margin: 1rem;
+    max-width: 800px;
+    min-width: 600px;
+    margin-bottom: 2rem;
+}
+
+.question__content {
+    margin-top: 1rem;
+}
+
+.question__radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.question__radio-option {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+}

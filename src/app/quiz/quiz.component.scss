@@ -1,0 +1,34 @@
+.quiz__container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.quiz__question-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 5rem;
+    min-height: 460px;
+}
+
+.quiz__navigation-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1rem;
+    padding: 0 1rem;
+
+    button {
+        min-width: 120px;
+        height: 48px;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+    button:disabled {
+        opacity: 0.6;
+    }
+}

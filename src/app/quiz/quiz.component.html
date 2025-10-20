@@ -1,4 +1,14 @@
-<app-question [question]="currentQuestion()"></app-question>
+<div class="quiz__container">
+    <div class="quiz__question-wrapper">
+        <app-question [question]="currentQuestion()" />
+    </div>
 
-<button matButton="elevated" (click)="previousQuestion()">Poprzednie</button>
-<button matButton="elevated" (click)="nextQuestion()">Następne</button>
+    <div class="quiz__navigation-buttons">
+        <button matButton="elevated" [disabled]="isFirstQuestion()" (click)="previousQuestion()">
+            Poprzednie
+        </button>
+        <button matButton="elevated" [disabled]="isLastQuestion()" (click)="nextQuestion()">
+            Następne
+        </button>
+    </div>
+</div>

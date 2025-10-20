@@ -2,7 +2,7 @@
 
 ## Wstęp
 
-...
+W poprzednich zadaniach stworzyliśmy podstawową strukturę aplikacji quizowej w Angularze, składającą się z komponentów `Quiz` oraz `Question`. W tym zadaniu zajmiemy się stworzeniem serwisu, który będzie odpowiedzialny za pobieranie pytań quizowych z zewnętrznego API. Dzięki temu nasza aplikacja stanie się bardziej modularna i łatwiejsza do utrzymania.
 
 ## Kroki do wykonania
 

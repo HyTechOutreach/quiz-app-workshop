@@ -1,7 +1,9 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { QuestionData } from '../interfaces/question-data';
 import { QuestionComponent } from '../question/question.component';
 import { MatButtonModule } from '@angular/material/button';
+import { QuizService } from '../services/quiz.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-quiz',
@@ -10,34 +12,17 @@ import { MatButtonModule } from '@angular/material/button';
     styleUrl: './quiz.component.scss',
 })
 export class QuizComponent {
-    questions = signal<QuestionData[]>([
-        {
-            id: '1',
-            answer: 'b',
-            options: {
-                a: 'Biblioteką JavaScript do budowy interfejsów użytkownika',
-                b: 'Frameworkiem TypeScript do tworzenia aplikacji webowych',
-                c: 'Językiem programowania',
-                d: 'Bazą danych',
-            },
-            question: 'Czym jest Angular?',
-        },
-        {
-            id: '2',
-            answer: 'd',
-            options: {
-                a: 'JavaScript',
-                b: 'Java',
-                c: 'Python',
-                d: 'TypeScript',
-            },
-            question: 'Jaki język jest podstawą Angulara?',
-        },
-    ]);
+    private readonly quizService = inject(QuizService);
+
+    questions = toSignal(this.quizService.getQuestions(), { initialValue: [] });
 
     currentQuestionIndex = signal(0);
 
     currentQuestion = computed(() => this.questions()[this.currentQuestionIndex()]);
+
+    isFirstQuestion = computed(() => this.currentQuestionIndex() === 0);
+
+    isLastQuestion = computed(() => this.currentQuestionIndex() === this.questions().length - 1);
 
     previousQuestion(): void {
         this.currentQuestionIndex.update((index) => index - 1);
