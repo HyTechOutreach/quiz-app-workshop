@@ -1,0 +1,14 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{ question().question }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-radio-group>
+            @for (option of options(); track option.key) {
+                <mat-radio-button [value]="option.key" class="radio-option">
+                    {{ option.value }}
+                </mat-radio-button>
+            }
+        </mat-radio-group>
+    </mat-card-content>
+</mat-card>

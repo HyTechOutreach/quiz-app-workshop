@@ -4,7 +4,7 @@
 
 W tym zadaniu dodasz do aplikacji nowy komponent `Quiz`, który będzie wyświetlał pytania quizowe. Każde pytanie będzie reprezentowane przez osobny komponent `Question`. Pytania oraz możliwe odpowiedzi będą przekazywane do komponentu `Question` za pomocą właściwości `input`.
 
-## Kroki do wykonania§
+## Kroki do wykonania
 
 1. **Wygeneruj nowy komponent i dodaj routing**:
 
@@ -77,7 +77,7 @@ W tym zadaniu dodasz do aplikacji nowy komponent `Quiz`, który będzie wyświet
         <mat-card-content>
             <mat-radio-group>
                 @for (option of options(); track option.key) {
-                    <mat-radio-button [value]="option.key" class="radio-option">
+                    <mat-radio-button [value]="option.key">
                         {{ option.value }}
                     </mat-radio-button>
                 }
