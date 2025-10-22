@@ -1,14 +1,18 @@
 <div class="quiz__container">
-    <div class="quiz__question-wrapper">
-        <app-question [question]="currentQuestion()" />
-    </div>
+    @if (isLoading()) {
+        <mat-progress-spinner class="quiz__spinner" mode="indeterminate" />
+    } @else {
+        <div class="quiz__question-wrapper">
+            <app-question [question]="currentQuestion()" />
+        </div>
 
-    <div class="quiz__navigation-buttons">
-        <button matButton="elevated" [disabled]="isFirstQuestion()" (click)="previousQuestion()">
-            Poprzednie
-        </button>
-        <button matButton="elevated" [disabled]="isLastQuestion()" (click)="nextQuestion()">
-            Następne
-        </button>
-    </div>
+        <div class="quiz__navigation-buttons">
+            <button matButton="elevated" [disabled]="isFirstQuestion()" (click)="previousQuestion()">
+                Poprzednie
+            </button>
+            <button matButton="elevated" [disabled]="isLastQuestion()" (click)="nextQuestion()">
+                Następne
+            </button>
+        </div>
+    }
 </div>

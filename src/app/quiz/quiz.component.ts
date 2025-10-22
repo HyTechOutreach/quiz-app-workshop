@@ -4,10 +4,11 @@ import { QuestionComponent } from '../question/question.component';
 import { MatButtonModule } from '@angular/material/button';
 import { QuizService } from '../services/quiz.service';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
     selector: 'app-quiz',
-    imports: [QuestionComponent, MatButtonModule],
+    imports: [QuestionComponent, MatButtonModule, MatProgressSpinnerModule],
     templateUrl: './quiz.component.html',
     styleUrl: './quiz.component.scss',
 })
@@ -15,6 +16,8 @@ export class QuizComponent {
     private readonly quizService = inject(QuizService);
 
     questions = toSignal(this.quizService.getQuestions(), { initialValue: [] });
+
+    isLoading = computed(() => this.questions().length === 0);
 
     currentQuestionIndex = signal(0);
 
