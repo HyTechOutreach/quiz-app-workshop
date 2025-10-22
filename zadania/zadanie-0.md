@@ -31,3 +31,9 @@ Twoim zadaniem będzie zapoznanie się z plikami projektu, zainstalowanie zależ
 ## Podsumowanie
 
 Na tym etapie powinieneś mieć działającą i uruchomioną lokalnie aplikację Angular z zainstalowanymi zależnościami i przygotowanym plikiem `app.component.html`. Możesz teraz przejść do zadania pierwszego, gdzie zaczniesz tworzyć pierwsze komponenty i funkcjonalności aplikacji.
+
+## Pomocna dokumentacja
+
+-   https://angular.dev/installation - instalacja i uruchomienie projektu Angular
+-   https://angular.dev/tools/cli - omówienie Angular CLI
+-   https://angular.dev/guide/workspace-config - konfiguracja przestrzeni roboczej

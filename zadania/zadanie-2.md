@@ -77,9 +77,7 @@ W tym zadaniu dodasz do aplikacji nowy komponent `Quiz`, który będzie wyświet
         <mat-card-content>
             <mat-radio-group>
                 @for (option of options(); track option.key) {
-                    <mat-radio-button [value]="option.key">
-                        {{ option.value }}
-                    </mat-radio-button>
+                <mat-radio-button [value]="option.key"> {{ option.value }} </mat-radio-button>
                 }
             </mat-radio-group>
         </mat-card-content>
@@ -97,6 +95,7 @@ W tym zadaniu dodasz do aplikacji nowy komponent `Quiz`, który będzie wyświet
     ```
 
     To wyrażenie może wydawać się skomplikowane, ale w skrócie robi ono następujące rzeczy:
+
     - `this.question().options` - uzyskuje obiekt opcji z przekazanego pytania,
     - `Object.entries(...)` - konwertuje obiekt na tablicę par klucz-wartość,
     - `map(...)` - przekształca każdą parę na obiekt z właściwościami `key` i `value`.
@@ -120,7 +119,7 @@ W tym zadaniu dodasz do aplikacji nowy komponent `Quiz`, który będzie wyświet
         { key: 'b', value: 'Odpowiedź B' },
         { key: 'c', value: 'Odpowiedź C' },
         { key: 'd', value: 'Odpowiedź D' },
-    ]
+    ];
     ```
 
 5. **Użycie komponentu `Question` i przetestowanie działania**:
@@ -178,3 +177,13 @@ W tym zadaniu dodasz do aplikacji nowy komponent `Quiz`, który będzie wyświet
 ## Podsumowanie
 
 Po wykonaniu tego zadania powinieneś mieć działający komponent `Quiz`, który wyświetla pytania quizowe za pomocą komponentu `Question`. Pytania są przekazywane do komponentu `Question` jako właściwość `input`, a użytkownik może nawigować między pytaniami za pomocą przycisków "Poprzednie" i "Następne".
+
+## Pomocna dokumentacja
+
+-   https://angular.dev/api/router/RouterLink - dyrektywa `routerLink`
+-   https://angular.dev/guide/signal-inputs - przekazywanie danych do komponentu za pomocą `input()`
+-   https://angular.dev/guide/signals - wprowadzenie do sygnałów w Angularze
+-   https://angular.dev/guide/control-flow - składnia pętli `@for`
+-   https://angular.dev/guide/user-input - obsługa zdarzeń użytkownika, np. `(click)`
+-   https://material.angular.io/components/card/overview - dokumentacja komponentu `mat-card`
+-   https://material.angular.io/components/radio/overview - dokumentacja komponentu `mat-radio-button`

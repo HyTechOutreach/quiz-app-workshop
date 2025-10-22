@@ -114,3 +114,13 @@ W poprzednich zadaniach stworzyliśmy podstawową strukturę aplikacji quizowej 
 ## Podsumowanie
 
 Gratulacje! Udało Ci się stworzyć serwis w Angularze, który korzysta z zewnętrznego API. W kolejnych zadaniach będziemy rozwijać aplikację, dodając nowe funkcjonalności i ulepszając istniejące komponenty.
+
+## Pomocna dokumentacja
+
+-   https://angular.dev/guide/di-overview - wprowadzenie do wstrzykiwania zależności
+-   https://angular.dev/guide/di-dependency-injection-in-action - wstrzykiwanie zależności w praktyce
+-   https://angular.dev/guide/http-setup - konfiguracja klienta HTTP
+-   https://angular.dev/guide/http-request-data - wykonywanie zapytań HTTP
+-   https://angular.dev/guide/observables - wprowadzenie do `Observable`
+-   https://rxjs.dev/api/index/function/of - funkcja `of` z biblioteki RxJS
+-   https://angular.dev/guide/signals-interop#reading-observables-as-signals - konwersja `Observable` na sygnał za pomocą `toSignal`

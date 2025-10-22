@@ -46,7 +46,7 @@ W tym zadaniu dodamy do naszej aplikacji wskaźnik ładowania, który będzie wy
     Jeżeli ikony nie wyświetlają się poprawnie, upewnij się, że w pliku `index.html` znajduje się link do czcionek Material Icons:
 
     ```html
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     ```
 
 3. **Użycie komponentu `Toolbar`**:
@@ -54,8 +54,7 @@ W tym zadaniu dodamy do naszej aplikacji wskaźnik ładowania, który będzie wy
     Zazwyczaj zależy nam, aby toolbar był widoczny na każdej stronie aplikacji. W tym celu otwórz plik `app.component.html` i umieść w nim komponent `app-toolbar` nad deklaracją `router-outlet`:
 
     ```html
-    <app-toolbar>{{ title() }}</app-toolbar>
-    <router-outlet />
+    <app-toolbar>{{ title() }}</app-toolbar> <router-outlet />
     ```
 
     Właśnie poznałeś również sposób na przekazywanie treści pomiędzy komponentami za pomocą `ng-content`. W tym przypadku przekazujemy tytuł aplikacji do komponentu `Toolbar`, który wyświetla go w środku paska narzędzi.
@@ -65,3 +64,11 @@ W tym zadaniu dodamy do naszej aplikacji wskaźnik ładowania, który będzie wy
 ## Podsumowanie
 
 Po ukończeniu tego zadania Twoja aplikacja powinna wyglądać profesjonalnie i być bardziej przyjazna dla użytkownika. Wskaźnik ładowania zapewni lepsze doświadczenie podczas oczekiwania na dane, a toolbar doda strukturę i ułatwi nawigację w aplikacji.
+
+## Pomocna dokumentacja
+
+-   https://angular.dev/guide/control-flow - składnia bloku warunkowego `@if`
+-   https://material.angular.io/components/progress-spinner/overview - dokumentacja komponentu `mat-progress-spinner`
+-   https://material.angular.io/components/toolbar/overview - dokumentacja komponentu `mat-toolbar`
+-   https://material.angular.io/components/icon/overview - dokumentacja komponentu `mat-icon`
+-   https://angular.dev/guide/content-projection - przekazywanie treści do komponentu za pomocą `ng-content`

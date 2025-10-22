@@ -4,9 +4,9 @@
 
 Na ten moment, użytkownik może korzystać z przycików radio do wyboru odpowiedzi w quizie, lecz jego odpowiedzi nie są nigdzie zapisywane ani wyświetlane po zakończeniu quizu. Twoim zadaniem jest dokończenie tej funkcjonalności, tak aby:
 
-- odpowiedzi użytkownika były zapisywane podczas trwania quizu,
-- użytkownik nie mógł przejść do następnego pytania bez wybrania odpowiedzi,
-- po zakończeniu quizu, użytkownik mógł zobaczyć, na które pytania odpowiedział poprawnie, a na które nie.
+-   odpowiedzi użytkownika były zapisywane podczas trwania quizu,
+-   użytkownik nie mógł przejść do następnego pytania bez wybrania odpowiedzi,
+-   po zakończeniu quizu, użytkownik mógł zobaczyć, na które pytania odpowiedział poprawnie, a na które nie.
 
 ## Kroki do wykonania
 
@@ -38,7 +38,7 @@ Na ten moment, użytkownik może korzystać z przycików radio do wyboru odpowie
         class="question__radio-group"
         [value]="currentAnswer()"
         (change)="onAnswerSelected($event.value)"
-    >
+    ></mat-radio-group>
     ```
 
 3. **Przekazanie danych z komponentu `Quiz` do komponentu `Question`**:
@@ -66,11 +66,7 @@ Na ten moment, użytkownik może korzystać z przycików radio do wyboru odpowie
     ```
 
     ```html
-    <button
-        matButton="elevated"
-        [disabled]="canProceedToNextQuestion()"
-        (click)="nextQuestion()"
-    >
+    <button matButton="elevated" [disabled]="canProceedToNextQuestion()" (click)="nextQuestion()">
         Następne
     </button>
     ```
@@ -82,3 +78,12 @@ Na ten moment, użytkownik może korzystać z przycików radio do wyboru odpowie
 ## Podsumowanie
 
 ...
+
+## Pomocna dokumentacja
+
+-   https://angular.dev/guide/component-communication - komunikacja między komponentami (`input` i `output`)
+-   https://angular.dev/guide/template-binding - składnia bindowania w szablonach (np. `[value]`, `[disabled]`)
+-   https://angular.dev/guide/user-input - obsługa zdarzeń użytkownika, np. `(change)`
+-   https://angular.dev/guide/signals#computed-signals - sygnały `computed`
+-   https://material.angular.io/components/radio/overview - dokumentacja komponentu `mat-radio-button`
+-   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map - dokumentacja obiektu `Map`

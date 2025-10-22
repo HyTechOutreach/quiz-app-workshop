@@ -87,3 +87,12 @@ W tym zadaniu dodasz routing do aplikacji oraz stworzysz pierwszy komponent, kt�
 ## Podsumowanie
 
 Wiesz już jakiej komendy użyć do wygenerowania komponentu, gdzie dodać routing oraz jak zainstalować Angular Material. W kolejnym zadaniu dodasz kolejny komponent oraz nauczysz się, jak pobierać dane z zewnętrznego API.
+
+## Pomocna dokumentacja
+
+-   https://angular.dev/guide/routing-overview - wprowadzenie do routingu
+-   https://angular.dev/cli/generate - generowanie komponentów, dyrektyw, serwisów itp. za pomocą Angular CLI
+-   https://angular.dev/guide/standalone-components - o samodzielnych komponentach
+-   https://material.angular.io/guide/getting-started - jak zacząć pracę z Angular Material
+-   https://material.angular.io/components/button/overview - dokumentacja komponentu przycisku w Angular Material
+-   https://angular.dev/guide/component-styles - style komponentów w Angularze
