@@ -3,16 +3,26 @@
         <mat-progress-spinner class="quiz__spinner" mode="indeterminate" />
     } @else {
         <div class="quiz__question-wrapper">
-            <app-question [question]="currentQuestion()" />
+            <app-question
+                [question]="currentQuestion()!"
+                [currentAnswer]="currentAnswer()"
+                (answerSelected)="onAnswerSelected($event)"
+            />
         </div>
 
         <div class="quiz__navigation-buttons">
             <button matButton="elevated" [disabled]="isFirstQuestion()" (click)="previousQuestion()">
                 Poprzednie
             </button>
-            <button matButton="elevated" [disabled]="isLastQuestion()" (click)="nextQuestion()">
-                Następne
-            </button>
+            @if (isLastQuestion()) {
+                <button matButton="filled" (click)="finishQuiz()" [disabled]="!currentAnswer()">
+                    Zakończ quiz
+                </button>
+            } @else {
+                <button matButton="elevated" [disabled]="canProceedToNextQuestion()" (click)="nextQuestion()">
+                    Następne
+                </button>
+            }
         </div>
     }
 </div>
