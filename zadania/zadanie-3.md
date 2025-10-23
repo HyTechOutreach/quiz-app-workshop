@@ -72,7 +72,17 @@ W poprzednich zadaniach stworzyliśmy podstawową strukturę aplikacji quizowej 
 
     Sprawdź, czy działanie aplikacji pozostało bez zmian i czy pytania są poprawnie wyświetlane.
 
-3. **Wstrzyknięcie klienta HTTP i pobranie pytań z API**:
+3. **Zapoznanie się z udostępnionym API**:
+
+    Na potrzeby zajęć udostępnione zostało proste API, z którego będziemy pobierać pytania quizowe. Zapoznaj się z dokumentacją API pod adresem: <https://d1y0x5bhpq4nol.cloudfront.net/>.
+
+    Zauważ, że endpoint do pobierania pytań to `https://d1y0x5bhpq4nol.cloudfront.net/questions`, a dostępne parametry zapytania to:
+
+    - `category` - kategoria pytań (np. `angular`, `polska`, `zwierzeta`),
+    - `multiple` - czy pytania mają mieć wiele poprawnych odpowiedzi (`true` lub `false`),
+    - `amount` - liczba pytań do pobrania.
+
+4. **Wstrzyknięcie klienta HTTP i pobranie pytań z API**:
 
     `HttpClient` to wbudowany serwis Angulara, który umożliwia wykonywanie zapytań HTTP. Wykorzystamy go w `QuizService`, aby pobrać pytania z zewnętrznego API.
 
@@ -97,17 +107,25 @@ W poprzednich zadaniach stworzyliśmy podstawową strukturę aplikacji quizowej 
     private readonly http = inject(HttpClient);
     ```
 
-    Zmodyfikuj metodę `getQuestions()`, aby wykonywała zapytanie GET do endpointu
-    `https://hyland-tech-outreach-default-rtdb.europe-west1.firebasedatabase.app/single/angular`:
+    Zmodyfikuj metodę `getQuestions()`, aby wykonywała zapytanie GET do udostępnionego API i zwracała otrzymane pytania:
 
     ```typescript
-    private readonly baseUrl =
-    'https://hyland-tech-outreach-default-rtdb.europe-west1.firebasedatabase.app/';
+        private readonly baseUrl = 'https://d1y0x5bhpq4nol.cloudfront.net';
 
-    getQuestions(): Observable<QuestionData[]> {
-        return this.http.get<QuestionData[]>(`${this.baseUrl}/single/angular.json`);
-    }
+        getQuestions(): Observable<QuestionData[]> {
+            return this.http
+                .get<ApiResponse>(`${this.baseUrl}/questions`, {
+                    params: {
+                        category: 'angular',
+                        multiple: 'false',
+                        amount: 3,
+                    },
+                })
+                .pipe(map((response) => response.questions));
+        }
     ```
+
+    Pamiętaj o zdefiniowaniu interfejsu `ApiResponse`, który odzwierciedla strukturę odpowiedzi z API.
 
     Zweryfikuj, czy aplikacja działa poprawnie i czy pytania są pobierane z API.
 

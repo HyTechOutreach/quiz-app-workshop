@@ -12,7 +12,7 @@ Na ten moment, użytkownik może korzystać z przycików radio do wyboru odpowie
 
 1. **Przechowywanie odpowiedzi użytkownika w komponencie `Quiz`**:
 
-    Dodaj do kompinentu `Quiz` następujące elementy:
+    Dodaj do komponentu `Quiz` następujące elementy:
 
     - sygnał lub zmienną, która będzie przechowywać odpowiedzi użytkownika. Możesz użyć `Map`, gdzie kluczem będzie identyfikator pytania, a wartością wybrana odpowiedź,
     - sygnał lub zmienną, która będzie przechowywać odpowiedź użytkownika dla bieżącego pytania (jeśli istnieje).
