@@ -7,5 +7,4 @@ export interface QuestionData {
         c: string;
         d: string;
     };
-    answer: string;
 }

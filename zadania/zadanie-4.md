@@ -67,8 +67,8 @@ Po ukończeniu tego zadania Twoja aplikacja powinna wyglądać profesjonalnie i 
 
 ## Pomocna dokumentacja
 
--   https://angular.dev/guide/control-flow - składnia bloku warunkowego `@if`
--   https://material.angular.io/components/progress-spinner/overview - dokumentacja komponentu `mat-progress-spinner`
--   https://material.angular.io/components/toolbar/overview - dokumentacja komponentu `mat-toolbar`
--   https://material.angular.io/components/icon/overview - dokumentacja komponentu `mat-icon`
--   https://angular.dev/guide/content-projection - przekazywanie treści do komponentu za pomocą `ng-content`
+- <https://angular.dev/guide/control-flow> - składnia bloku warunkowego `@if`
+- <https://material.angular.io/components/progress-spinner/overview> - dokumentacja komponentu `mat-progress-spinner`
+- <https://material.angular.io/components/toolbar/overview> - dokumentacja komponentu `mat-toolbar`
+- <https://material.angular.io/components/icon/overview> - dokumentacja komponentu `mat-icon`
+- <https://angular.dev/guide/content-projection> - przekazywanie treści do komponentu za pomocą `ng-content`

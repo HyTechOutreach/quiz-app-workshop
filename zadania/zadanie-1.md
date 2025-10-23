@@ -90,9 +90,9 @@ Wiesz już jakiej komendy użyć do wygenerowania komponentu, gdzie dodać routi
 
 ## Pomocna dokumentacja
 
--   https://angular.dev/guide/routing-overview - wprowadzenie do routingu
--   https://angular.dev/cli/generate - generowanie komponentów, dyrektyw, serwisów itp. za pomocą Angular CLI
--   https://angular.dev/guide/standalone-components - o samodzielnych komponentach
--   https://material.angular.io/guide/getting-started - jak zacząć pracę z Angular Material
--   https://material.angular.io/components/button/overview - dokumentacja komponentu przycisku w Angular Material
--   https://angular.dev/guide/component-styles - style komponentów w Angularze
+- <https://angular.dev/guide/routing-overview> - wprowadzenie do routingu
+- <https://angular.dev/cli/generate> - generowanie komponentów, dyrektyw, serwisów itp. za pomocą Angular CLI
+- <https://angular.dev/guide/standalone-components> - o samodzielnych komponentach
+- <https://material.angular.io/guide/getting-started> - jak zacząć pracę z Angular Material
+- <https://material.angular.io/components/button/overview> - dokumentacja komponentu przycisku w Angular Material
+- <https://angular.dev/guide/component-styles> - style komponentów w Angularze

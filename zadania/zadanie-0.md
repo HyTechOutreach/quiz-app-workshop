@@ -34,6 +34,6 @@ Na tym etapie powinieneś mieć działającą i uruchomioną lokalnie aplikację
 
 ## Pomocna dokumentacja
 
--   https://angular.dev/installation - instalacja i uruchomienie projektu Angular
--   https://angular.dev/tools/cli - omówienie Angular CLI
--   https://angular.dev/guide/workspace-config - konfiguracja przestrzeni roboczej
+- <https://angular.dev/installation> - instalacja i uruchomienie projektu Angular
+- <https://angular.dev/tools/cli> - omówienie Angular CLI
+- <https://angular.dev/guide/workspace-config> - konfiguracja przestrzeni roboczej

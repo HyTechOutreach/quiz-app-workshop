@@ -105,7 +105,7 @@ W poprzednich zadaniach stworzyliśmy podstawową strukturę aplikacji quizowej 
     'https://hyland-tech-outreach-default-rtdb.europe-west1.firebasedatabase.app/';
 
     getQuestions(): Observable<QuestionData[]> {
-        return this.http.get<QuestionData[]>(`${this.baseUrl}/single/angular`);
+        return this.http.get<QuestionData[]>(`${this.baseUrl}/single/angular.json`);
     }
     ```
 
@@ -117,10 +117,10 @@ Gratulacje! Udało Ci się stworzyć serwis w Angularze, który korzysta z zewn�
 
 ## Pomocna dokumentacja
 
--   https://angular.dev/guide/di-overview - wprowadzenie do wstrzykiwania zależności
--   https://angular.dev/guide/di-dependency-injection-in-action - wstrzykiwanie zależności w praktyce
--   https://angular.dev/guide/http-setup - konfiguracja klienta HTTP
--   https://angular.dev/guide/http-request-data - wykonywanie zapytań HTTP
--   https://angular.dev/guide/observables - wprowadzenie do `Observable`
--   https://rxjs.dev/api/index/function/of - funkcja `of` z biblioteki RxJS
--   https://angular.dev/guide/signals-interop#reading-observables-as-signals - konwersja `Observable` na sygnał za pomocą `toSignal`
+- <https://angular.dev/guide/di-overview> - wprowadzenie do wstrzykiwania zależności
+- <https://angular.dev/guide/di-dependency-injection-in-action> - wstrzykiwanie zależności w praktyce
+- <https://angular.dev/guide/http-setup> - konfiguracja klienta HTTP
+- <https://angular.dev/guide/http-request-data> - wykonywanie zapytań HTTP
+- <https://angular.dev/guide/observables> - wprowadzenie do `Observable`
+- <https://rxjs.dev/api/index/function/of> - funkcja `of` z biblioteki RxJS
+- <https://angular.dev/guide/signals-interop#reading-observables-as-signals> - konwersja `Observable` na sygnał za pomocą `toSignal`

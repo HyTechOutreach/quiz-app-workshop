@@ -38,7 +38,6 @@ W tym zadaniu dodasz do aplikacji nowy komponent `Quiz`, który będzie wyświet
             c: string;
             d: string;
         };
-        answer: string;
     }
     ```
 
@@ -139,7 +138,6 @@ W tym zadaniu dodasz do aplikacji nowy komponent `Quiz`, który będzie wyświet
                 c: 'Językiem programowania',
                 d: 'Bazą danych',
             },
-            answer: 'b',
         },
         {
             id: '2',
@@ -150,7 +148,6 @@ W tym zadaniu dodasz do aplikacji nowy komponent `Quiz`, który będzie wyświet
                 c: 'Python',
                 d: 'TypeScript',
             },
-            answer: 'd',
         },
     ]);
 
@@ -180,10 +177,10 @@ Po wykonaniu tego zadania powinieneś mieć działający komponent `Quiz`, któr
 
 ## Pomocna dokumentacja
 
--   https://angular.dev/api/router/RouterLink - dyrektywa `routerLink`
--   https://angular.dev/guide/signal-inputs - przekazywanie danych do komponentu za pomocą `input()`
--   https://angular.dev/guide/signals - wprowadzenie do sygnałów w Angularze
--   https://angular.dev/guide/control-flow - składnia pętli `@for`
--   https://angular.dev/guide/user-input - obsługa zdarzeń użytkownika, np. `(click)`
--   https://material.angular.io/components/card/overview - dokumentacja komponentu `mat-card`
--   https://material.angular.io/components/radio/overview - dokumentacja komponentu `mat-radio-button`
+- <https://angular.dev/api/router/RouterLink> - dyrektywa `routerLink`
+- <https://angular.dev/guide/signal-inputs> - przekazywanie danych do komponentu za pomocą `input()`
+- <https://angular.dev/guide/signals> - wprowadzenie do sygnałów w Angularze
+- <https://angular.dev/guide/control-flow> - składnia pętli `@for`
+- <https://angular.dev/guide/user-input> - obsługa zdarzeń użytkownika, np. `(click)`
+- <https://material.angular.io/components/card/overview> - dokumentacja komponentu `mat-card`
+- <https://material.angular.io/components/radio/overview> - dokumentacja komponentu `mat-radio-button`

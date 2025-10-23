@@ -4,9 +4,9 @@
 
 Na ten moment, użytkownik może korzystać z przycików radio do wyboru odpowiedzi w quizie, lecz jego odpowiedzi nie są nigdzie zapisywane ani wyświetlane po zakończeniu quizu. Twoim zadaniem jest dokończenie tej funkcjonalności, tak aby:
 
--   odpowiedzi użytkownika były zapisywane podczas trwania quizu,
--   użytkownik nie mógł przejść do następnego pytania bez wybrania odpowiedzi,
--   po zakończeniu quizu, użytkownik mógł zobaczyć, na które pytania odpowiedział poprawnie, a na które nie.
+- odpowiedzi użytkownika były zapisywane podczas trwania quizu,
+- użytkownik nie mógł przejść do następnego pytania bez wybrania odpowiedzi,
+- po zakończeniu quizu, użytkownik mógł zobaczyć, na które pytania odpowiedział poprawnie, a na które nie.
 
 ## Kroki do wykonania
 
@@ -73,17 +73,17 @@ Na ten moment, użytkownik może korzystać z przycików radio do wyboru odpowie
 
 5. **Dodanie przycisku do zakończenia quizu**
 
-    W komponencie `Quiz`, dodaj przycisk `Zakończ quiz`, który będzie widoczny tylko na ostatnim pytaniu. Po kliknięciu tego przycisku, użytkownik powinien zostać przekierowany do komponentu `Results`, gdzie zobaczy swoje wyniki.
+    W komponencie `Quiz`, dodaj przycisk `Zakończ quiz`, który będzie widoczny tylko na ostatnim pytaniu. Po kliknięciu tego przycisku, użytkownik powinien zostać przekierowany do komponentu `Results`, gdzie zobaczy swoje wyniki. Na ten moment, możesz wyświetlić je w konsoli, lub bezpośrednio w nowym komponencie. W następnym zadaniu Rozwiniemy komponent `Results`, aby pokazać wyniki w bardziej przyjazny sposób.
 
 ## Podsumowanie
 
-...
+Po ukończeniu tego zadania, Twoja aplikacja quizowa powinna umożliwiać użytkownikowi wybieranie odpowiedzi na pytania, zapisywać te odpowiedzi oraz uniemożliwiać przejście do następnego pytania bez wybrania odpowiedzi. Dodatkowo, użytkownik powinien mieć możliwość zakończenia quizu i przejścia do komponentu wyników.
 
 ## Pomocna dokumentacja
 
--   https://angular.dev/guide/component-communication - komunikacja między komponentami (`input` i `output`)
--   https://angular.dev/guide/template-binding - składnia bindowania w szablonach (np. `[value]`, `[disabled]`)
--   https://angular.dev/guide/user-input - obsługa zdarzeń użytkownika, np. `(change)`
--   https://angular.dev/guide/signals#computed-signals - sygnały `computed`
--   https://material.angular.io/components/radio/overview - dokumentacja komponentu `mat-radio-button`
--   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map - dokumentacja obiektu `Map`
+- <https://angular.dev/guide/component-communication> - komunikacja między komponentami (`input` i `output`)
+- <https://angular.dev/guide/template-binding> - składnia bindowania w szablonach (np. `[value]`, `[disabled]`)
+- <https://angular.dev/guide/user-input> - obsługa zdarzeń użytkownika, np. `(change)`
+- <https://angular.dev/guide/signals#computed-signals> - sygnały `computed`
+- <https://material.angular.io/components/radio/overview> - dokumentacja komponentu `mat-radio-button`
+- <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map> - dokumentacja obiektu `Map`
